@@ -72,7 +72,7 @@ describe('API tests - src/app.js', () => {
   test('GET / should return welcome text', async () => {
     const res = await request(app).get('/');
     expect(res.status).toBe(200);
-    expect(res.text).toBe('Curso de Node.js com Express');
+    expect(res.text).toBe('API em Node.js com Express e mongoose');
   });
 
   test('GET /livros returns 200 and list when livros exist and calls find.exec', async () => {
