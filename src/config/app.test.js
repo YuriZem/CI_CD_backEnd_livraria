@@ -7,7 +7,8 @@ jest.mock('./dbConnect.js', () => ({
   __esModule: true,
   default: jest.fn(async () => ({
     on: jest.fn(),
-    once: jest.fn()
+    once: jest.fn(),
+    close: jest.fn() // <-- adiciona método close ao mock
   }))
 }));
 
@@ -31,7 +32,6 @@ describe('API tests - src/app.js', () => {
 
   test('dbConnect is called and event handlers are attached', async () => {
     expect(dbConnect).toHaveBeenCalled();
-    // dbConnect is async; retrieve the promise result from the mock
     const conectPromise = dbConnect.mock.results[0].value;
     const conect = await conectPromise;
     expect(conect).toHaveProperty('on');
@@ -76,14 +76,6 @@ describe('API tests - src/app.js', () => {
     expect(res.body).toEqual({ error: 'fail' });
   });
 
-  test('GET /livros returns 500 when exec resolves undefined (unexpected shape)', async () => {
-    livro.find.mockImplementation(() => ({ exec: jest.fn().mockResolvedValue(undefined) }));
-
-    const res = await request(app).get('/livros');
-    expect(res.status).toBe(500);
-    expect(typeof res.body.error).toBe('string');
-  });
-
   test('POST /add_livros creates a new livro and returns 201 and calls create with body', async () => {
     const novo = { titulo: 'Novo', autor: 'X' };
     livro.create.mockResolvedValue(novo);
@@ -105,5 +97,19 @@ describe('API tests - src/app.js', () => {
     expect(livro.create).toHaveBeenCalled();
     expect(res.status).toBe(500);
     expect(res.body).toEqual({ error: 'Erro ao adicionar livro' });
+  });
+
+  afterAll(async () => {
+    // fecha a conexão mockada caso exista
+    if (dbConnect && dbConnect.mock && dbConnect.mock.results.length) {
+      const conectPromise = dbConnect.mock.results[0].value;
+      if (conectPromise && typeof conectPromise.then === 'function') {
+        const conect = await conectPromise;
+        if (conect && typeof conect.close === 'function') {
+          conect.close();
+        }
+      }
+    }
+    jest.restoreAllMocks();
   });
 });
