@@ -19,7 +19,7 @@ app.use(express.json());
 
 
 app.get('/', (req, res) => {
-    res.status(200).send('Curso de Node.js com Express');
+    res.status(200).send('API em Node.js com Express e mongoose');
 });
 
 app.get('/livros', async (req, res) => {
