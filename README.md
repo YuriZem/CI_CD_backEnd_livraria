@@ -165,7 +165,7 @@ Execução de testes automatizados (npm test);
 
 
 
-Deploy automático em ambiente Render ou Railway.
+Deploy automático em ambiente Render.
 
 👨‍💻 Autor
 
