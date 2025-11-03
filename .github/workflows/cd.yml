@@ -1,0 +1,28 @@
+name: 🚀 Continuous Deployment - Render
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔍 Checkout repositório
+        uses: actions/checkout@v4
+
+      - name: 🧩 Instalar dependências
+        run: npm install
+
+      - name: 🧪 Rodar testes
+        run: npm test
+
+      - name: 🚀 Deploy no Render
+        if: success() # só executa se os testes passarem
+        run: |
+          echo "Iniciando deploy no Render..."
+          curl "$RENDER_DEPLOY_HOOK"
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
