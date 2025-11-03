@@ -161,6 +161,10 @@ Instalação de dependências (npm install);
 
 Execução de testes automatizados (npm test);
 
+[![Deploy Automático - Render](https://github.com/YuriZem/Alura-node-js-api-rest-express-mongodb/actions/workflows/cd.yml/badge.svg)](https://github.com/YuriZem/Alura-node-js-api-rest-express-mongodb/actions)
+
+
+
 Deploy automático em ambiente Render ou Railway.
 
 👨‍💻 Autor
