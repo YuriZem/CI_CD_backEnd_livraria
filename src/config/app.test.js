@@ -8,7 +8,6 @@ const mockDbConnect = jest.fn(() => ({
   once: jest.fn(),
 }));
 
-
 jest.unstable_mockModule('./dbConnect.js', () => ({
   __esModule: true,
   default: jest.fn(() => ({
@@ -21,8 +20,6 @@ jest.unstable_mockModule('./dbConnect.js', () => ({
   })),
 }));
 
-
-
 jest.unstable_mockModule('../models/Livro.js', () => ({
   __esModule: true,
   default: {
@@ -33,14 +30,10 @@ jest.unstable_mockModule('../models/Livro.js', () => ({
   },
 }));
 
-// import request from 'supertest';
-
 const { default: app } = await import('../app.js');
 const { default: livro } = await import('../models/Livro.js');
 const { default: dbConnect } = await import('../config/dbConnect.js');
 
-// import livro from '../models/Livro.js';
-// import app from '../app.js';
 import request from 'supertest';
 
 jest.mock('./dbConnect.js', () => ({
@@ -59,10 +52,6 @@ jest.mock('../models/Livro.js', () => ({
     create: jest.fn()
   }
 }));
-
-// import dbConnect from './dbConnect.js';
-// import livro from '../models/Livro.js';
-// import app from '../app.js';
 
 describe('API tests - src/app.js', () => {
   beforeEach(() => {
