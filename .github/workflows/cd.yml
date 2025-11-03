@@ -30,7 +30,7 @@ jobs:
         if: success()
         # run: |
         #   echo "Iniciando deploy no Render..."
-        #   echo "Chamando webhook de deploy remoto..."
+        #   echo "Chamando  webhook de deploy remoto..."
         #   curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}" --fail -s -o /dev/null
         #   echo "✅ Deploy disparado com sucesso!"
         # shell: bash
