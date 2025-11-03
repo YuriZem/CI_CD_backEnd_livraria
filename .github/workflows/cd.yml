@@ -28,7 +28,7 @@ jobs:
 
       - name: 🚀 Deploy no Render
         if: success()
-        # run: | teste cd
+        # run: | teste cd 2
         #   echo "Iniciando deploy no Render..."
         #   echo "Chamando  webhook de deploy remoto..."
         #   curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}" --fail -s -o /dev/null
