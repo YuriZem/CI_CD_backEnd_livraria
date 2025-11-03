@@ -3,6 +3,7 @@ import dbConnect from './config/dbConnect.js';
 import livro from './models/Livro.js';
 import e from 'express';
 
+//teste
 const conect = await dbConnect();
 
 conect.on("error", (error) => {
