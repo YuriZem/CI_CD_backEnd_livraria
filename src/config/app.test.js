@@ -1,6 +1,46 @@
 // src/app.test.js
 // We recommend installing an extension to run jest tests.
 
+import { jest } from '@jest/globals';
+
+const mockDbConnect = jest.fn(() => ({
+  on: jest.fn(),
+  once: jest.fn(),
+}));
+
+
+jest.unstable_mockModule('./dbConnect.js', () => ({
+  __esModule: true,
+  default: jest.fn(() => ({
+    on: jest.fn(),
+    once: jest.fn(),
+    create: jest.fn(),
+    find: jest.fn(),
+    findByIdAndUpdate: jest.fn(),
+    findByIdAndDelete: jest.fn(),
+  })),
+}));
+
+
+
+jest.unstable_mockModule('../models/Livro.js', () => ({
+  __esModule: true,
+  default: {
+    create: jest.fn(),
+    find: jest.fn(),
+    findByIdAndUpdate: jest.fn(),
+    findByIdAndDelete: jest.fn(),
+  },
+}));
+
+// import request from 'supertest';
+
+const { default: app } = await import('../app.js');
+const { default: livro } = await import('../models/Livro.js');
+const { default: dbConnect } = await import('../config/dbConnect.js');
+
+// import livro from '../models/Livro.js';
+// import app from '../app.js';
 import request from 'supertest';
 
 jest.mock('./dbConnect.js', () => ({
@@ -20,9 +60,9 @@ jest.mock('../models/Livro.js', () => ({
   }
 }));
 
-import dbConnect from './dbConnect.js';
-import livro from '../models/Livro.js';
-import app from '../app.js';
+// import dbConnect from './dbConnect.js';
+// import livro from '../models/Livro.js';
+// import app from '../app.js';
 
 describe('API tests - src/app.js', () => {
   beforeEach(() => {
