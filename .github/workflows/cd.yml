@@ -1,4 +1,4 @@
-name: 🚀 CD - Render
+name: 🚀 Continuous Deployment - Render
 
 on:
   push:
@@ -7,22 +7,30 @@ on:
 
 jobs:
   deploy:
+    name: Deploy to Render
     runs-on: ubuntu-latest
 
     steps:
       - name: 🔍 Checkout repositório
         uses: actions/checkout@v4
 
-      - name: 🧩 Instalar dependências
-        run: npm install
+      - name: 🧩 Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: 📦 Instalar dependências
+        run: npm ci
 
       - name: 🧪 Rodar testes
         run: npm test
 
       - name: 🚀 Deploy no Render
-        if: success() 
+        if: success()
         run: |
           echo "Iniciando deploy no Render..."
-          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
-        env:
-          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+          echo "Chamando webhook de deploy remoto..."
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}" --fail -s -o /dev/null
+          echo "✅ Deploy disparado com sucesso!"
+        shell: bash
