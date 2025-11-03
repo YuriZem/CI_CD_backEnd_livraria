@@ -1,4 +1,4 @@
-name: 🚀 Continuous Deployment - Render
+name: 🚀 CD - Render
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
         run: npm test
 
       - name: 🚀 Deploy no Render
-        if: success() # só executa se os testes passarem
+        if: success() 
         run: |
           echo "Iniciando deploy no Render..."
           curl "$RENDER_DEPLOY_HOOK"
