@@ -20,7 +20,7 @@ app.use(express.json());
 
 
 app.get('/', (req, res) => {
-    res.status(200).send('API em Node.js com Express e mongoose');
+    res.status(200).send('API em Node.js com Express e mongoose V.1.0');
 });
 
 app.get('/livros', async (req, res) => {

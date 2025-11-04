@@ -41,7 +41,7 @@ jest.mock('./dbConnect.js', () => ({
   default: jest.fn(async () => ({
     on: jest.fn(),
     once: jest.fn(),
-    close: jest.fn() // <-- adiciona método close ao mock
+    close: jest.fn() 
   }))
 }));
 
@@ -72,7 +72,7 @@ describe('API tests - src/app.js', () => {
   test('GET / should return welcome text', async () => {
     const res = await request(app).get('/');
     expect(res.status).toBe(200);
-    expect(res.text).toBe('API em Node.js com Express e mongoose');
+    expect(res.text).toBe('API em Node.js com Express e mongoose V.1.0');
   });
 
   test('GET /livros returns 200 and list when livros exist and calls find.exec', async () => {
