@@ -1,9 +1,6 @@
-// src/app.test.js
-// We recommend installing an extension to run jest tests.
-
 import { jest } from '@jest/globals';
 
-const mockDbConnect = jest.fn(() => ({
+const mockDbConnect = jest.fn(() => ({ 
   on: jest.fn(),
   once: jest.fn(),
 }));
@@ -36,7 +33,7 @@ const { default: dbConnect } = await import('../config/dbConnect.js');
 
 import request from 'supertest';
 
-jest.mock('./dbConnect.js', () => ({
+jest.mock('./dbConnect.js', () => ({ 
   __esModule: true,
   default: jest.fn(async () => ({
     on: jest.fn(),
@@ -45,7 +42,7 @@ jest.mock('./dbConnect.js', () => ({
   }))
 }));
 
-jest.mock('../models/Livro.js', () => ({
+jest.mock('../models/Livro.js', () => ({ //simula o modelo Livro
   __esModule: true,
   default: {
     find: jest.fn(),
